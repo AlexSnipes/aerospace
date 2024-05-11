@@ -71,6 +71,3 @@ elif (diametro_salida != ""):
     radio_entrada = math.sqrt(A1 / math.pi)
     diametro_entrada = radio_entrada * 2 * 100  # Convertimos a centímetros
     print("Diámetro entrada", round(diametro_entrada, 2), "cm")
-
-if (comprobar_contuinidad(A1, A2, v1, v2)):
-    print("Ecuación de continuidad resuelta")
