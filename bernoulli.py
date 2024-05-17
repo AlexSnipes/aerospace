@@ -15,9 +15,9 @@ v_ext_kmh = input("Velocidad en el extradós (km/h): ")
 v_int_kmh = input("Velocidad en el intradós (km/h): ")
 
 # Convertir velocidades de km/h a m/s
-v0 = float(v0_kmh) * 1000 / 3600
-v_ext = float(v_ext_kmh) * 1000 / 3600
-v_int = float(v_int_kmh) * 1000 / 3600
+v0 = kmh_to_ms(v0_kmh)
+v_ext = kmh_to_ms(v_ext_kmh)
+v_int = kmh_to_ms(v_int_kmh)
 
 # Calcular presiones en el extradós y el intradós usando Bernoulli
 P_ext = P0 + 0.5 * rho * (v0**2 - v_ext**2)
