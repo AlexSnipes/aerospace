@@ -56,21 +56,39 @@ if not S:
 S = float(S)
 
 # El usuario debe ingresar el CL o el ángulo de ataque
-CL = input("Coeficiente de sustentación (CL): ")  # Coeficiente de sustentación
+CL = input("C sustentación (CL): ")  # Coeficiente de sustentación
 if not CL:
-    angulo_ataque = input("Ángulo de ataque °: ")  # Ángulo de ataque
+    angulo_ataque = input("Angulo de ataque °: ")  # Ángulo de ataque
     if angulo_ataque:
         CL = round(obtener_coeficiente(angulo_cl, float(angulo_ataque)), 3)
-CL = float(CL)
+if CL:
+    CL = float(CL)
 
 # El usuario debe ingresar el CL o el ángulo de ataque
-CD = input("Coeficiente de resistencia (CD): ")  # Coeficiente de sustentación
+CD = input("C resistencia (CD): ")  # Coeficiente de sustentación
 if not CD and angulo_ataque:
     CD = round(obtener_coeficiente(angulo_cd, float(angulo_ataque)), 3)
+if not CD:
+    ci = float(input("C res. inducida (Ci): "))
+    if not ci:
+        print("No se puede calcular CD sin Ci")
+        exit()
+
+    cfo = float(input("C res. forma (Cfo): "))
+    if not ci:
+        print("No se puede calcular CD sin Cfo")
+        exit()
+
+    cfr = float(input("C res. fricción (Cfr): "))
+    if not ci:
+        print("No se puede calcular CD sin Cfr")
+        exit()
+    #CDt = Ci + Cfo + Cfr
+    CD = ci + cfo + cfr
 CD = float(CD)
 
 # El usuario debe ingresar la velocidad del avión o el número de mach
-v = input("Velocidad del avion (m/s): ")
+v = input("Vel. del avion (m/s): ")
 if not v:
     M = input("Numero de Mach: ")  # Número de Mach
     if not M:
@@ -79,16 +97,14 @@ if not v:
     v = float(M) * velocidad_sonido  # Velocidad del avión en m/s
 
 # Calcular la sustentación
-L = 0.5 * rho * float(v)**2 * S * CL
+if CL:
+    L = 0.5 * rho * float(v)**2 * S * CL
+    print("L: 1/2 * rho *v^2 * S *CL")
+    print("L: 1/2 *", S, "m^2 *", rho, "kgf*s^2/m^4 *", v, "m/s^2 *", CL)
+    print("L: ", L, "kgf")
+
 # Calcular la resistencia
 D = 0.5 * rho * float(v)**2 * S * CD
-
-# Mostrar el resultado y los valores utilizados
-print("L: 1/2 * rho *v^2 * S *CL")
-print("L: 1/2 *", S, "m^2 *", rho, "kgf*s^2/m^4 *", v, "m/s^2 *", CL)
-print("L: ", L, "kgf")
-
-# Mostrar el resultado y los valores utilizados
 print("D: 1/2 * rho *v^2 * S * CD")
 print("D: 1/2 *", S, "m^2 *", rho, "kgf*s^2/m^4 *", v, "m/s^2 *", CD)
 print("D: ", D, "kgf")
