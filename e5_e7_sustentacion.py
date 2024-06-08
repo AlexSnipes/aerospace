@@ -1,12 +1,9 @@
 import math
-
-# Definir constantes
-#rho = 0.125  # Densidad del aire en kgf*s^2/m^4
-#v = 0.6 * 340  # Velocidad del avión en m/s (M0.6)
-#c = 2.10  # Cuerda del ala en m
-#b = 25.70  # Envergadura del ala en m
-#S = b * c  # Área alar en m^2
-#CL = 1.2  # Coeficiente de sustentación típico
+'''
+Calculo de sustentación y resistencia 2024.06.08
+Ingenería Aeroespacial
+Conocimientos Aeroespaciales I
+'''
 
 velocidad_sonido = 340  # Velocidad del sonido en m/s (constante)
 angulo_cl = [(0, 0), (1, 0.5), (2, 0.8), (3, 1.05), (4, 1.2), (5, 1.23),
@@ -35,17 +32,17 @@ def obtener_coeficiente(datos, angulo):
 
 
 # Pedir al usuario los datos necesarios
-rho = input("Densidad del aire: ")  # Densidad del aire en kgf*s^2/m^4
+rho = input("Densidad: ")  # Densidad del aire en kgf*s^2/m^4
 if not rho or rho == "0":
     rho = 0.125
 else:
     rho = float(rho)
 
 # El usuario debe ingresar el CL o el ángulo de ataque
-S = input("Superficie alar (m^2): ")  # Superficie alar
+S = input("Superficie (m^2): ")  # Superficie alar
 if not S:
-    cr = float(input("Cuerda del ala en m: "))
-    b = float(input("Envergadura del ala en m: "))
+    cr = float(input("Cuerda del ala (m): "))
+    b = float(input("Envergadura (m): "))
     ahusamiento = input("Ahusamiento: ")
     S = b * cr
     if ahusamiento:
@@ -54,32 +51,32 @@ if not S:
         cp = ahusamiento * cr
         S = S * ((1 + ahusamiento) / 2)
 S = float(S)
-
+angulo_ataque = ""
 # El usuario debe ingresar el CL o el ángulo de ataque
-CL = input("C sustentación (CL): ")  # Coeficiente de sustentación
+CL = input("CL: ")  # Coeficiente de sustentación
 if not CL:
-    angulo_ataque = input("Angulo de ataque °: ")  # Ángulo de ataque
+    angulo_ataque = input("Angulo Ataque: ")  # Ángulo de ataque
     if angulo_ataque:
         CL = round(obtener_coeficiente(angulo_cl, float(angulo_ataque)), 3)
 if CL:
     CL = float(CL)
 
 # El usuario debe ingresar el CL o el ángulo de ataque
-CD = input("C resistencia (CD): ")  # Coeficiente de sustentación
+CD = input("CD: ")  # Coeficiente de sustentación
 if not CD and angulo_ataque:
     CD = round(obtener_coeficiente(angulo_cd, float(angulo_ataque)), 3)
 if not CD:
-    ci = float(input("C res. inducida (Ci): "))
+    ci = float(input("Ci: Coe. Res. inducida: "))
     if not ci:
         print("No se puede calcular CD sin Ci")
         exit()
 
-    cfo = float(input("C res. forma (Cfo): "))
+    cfo = float(input("Cfo: Coe. res. forma: "))
     if not ci:
         print("No se puede calcular CD sin Cfo")
         exit()
 
-    cfr = float(input("C res. fricción (Cfr): "))
+    cfr = float(input("Cfr Coe res. friccion: "))
     if not ci:
         print("No se puede calcular CD sin Cfr")
         exit()
@@ -88,9 +85,9 @@ if not CD:
 CD = float(CD)
 
 # El usuario debe ingresar la velocidad del avión o el número de mach
-v = input("Vel. del avion (m/s): ")
+v = input("Vel. avion (m/s): ")
 if not v:
-    M = input("Numero de Mach: ")  # Número de Mach
+    M = input("Numero Mach: ")  # Número de Mach
     if not M:
         print("Velocidad o Mach requerido")
         exit()
