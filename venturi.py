@@ -52,7 +52,7 @@ if not a2:
 print ("A2 ", round(a2, 2), "")
 if not v1:
     v1 = continuidad(a1, a2, v1, v2)
-print ("V1 ", round(v1, 2), 2), "(m/s)")
+print ("V1 ", round(v1, 2), "(m/s)")
 if not v2:
     v2 = continuidad(a1, a2, v1, v2)
 print ("V2 ", round(v2, 2), "(m/s)")
