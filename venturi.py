@@ -1,43 +1,58 @@
-'''
-Tube de Venturi
-'''
 import math
+'''
+@Author Alejandro Sánchez (github.com/AlexSnipes)
+@Version 2024.06.12 13:00
+Continuidad MicroPython
+Ingeniería Aeroespacial
+Conocimientos Aeroespaciales I
+'''
 
-def calculate_velocity():
-    # Pedir al usuario los datos
-    r1_input = input("Radio de la sección de entrada (cm): ")
-    A2_input = input("Área de la sección de salida (cm²): ")
-    v1_input = input("Velocidad en la sección de entrada (m/s): ")
-    v2_input = input("Velocidad en la sección de salida (m/s): ")
+densidad_fluido = ""
+v1 = ""
+p1 = ""
+a1 = ""
+a2 = ""
+v2 = ""
+p2 = ""
 
-    # Convertir las entradas a valores numéricos si se proporcionaron
-    r1 = float(r1_input) / 100 if r1_input else None
-    A2 = float(A2_input) / 10000 if A2_input else None
-    v1 = float(v1_input) if v1_input else None
-    v2 = float(v2_input) if v2_input else None
+#Calcular contiunidad
+def continuidad(a1, a2, v1, v2):
+    if (a1 == ""):
+        return a2 * v2 / v1
+    if (a2 == ""):
+        return a1 * v1 / v2
+    if (v1 == ""):
+        return a2 * v2 / a1
+    if (v2 == ""):
+        return a1 * v1 / a2
 
-    # Calcular el área de la sección de entrada si r1 fue proporcionado
-    A1 = math.pi * r1**2 if r1 else None
 
-    # Determinar la variable faltante y calcularla
-    if r1 and A2 and v2 and not v1:
-        # Calcular v1
-        v1 = (A2 * v2) / A1
-        print(f"La velocidad de entrada (v1) es de aproximadamente {v1:.2f} m/s")
-    elif r1 and A1 and v1 and not v2:
-        # Calcular v2
-        v2 = (A1 * v1) / A2
-        print(f"La velocidad de salida (v2) es de aproximadamente {v2:.2f} m/s")
-    elif A1 and A2 and v2 and not v1:
-        # Calcular v1
-        v1 = (A2 * v2) / A1
-        print(f"La velocidad de entrada (v1) es de aproximadamente {v1:.2f} m/s")
-    elif A1 and A2 and v1 and not v2:
-        # Calcular v2
-        v2 = (A1 * v1) / A2
-        print(f"La velocidad de salida (v2) es de aproximadamente {v2:.2f} m/s")
-    else:
-        print("No se puede determinar la variable faltante con los datos proporcionados. Asegúrese de ingresar al menos tres valores conocidos.")
+# Area de entrada
+a1 = input("A1: ")
+if (a1):
+    a1 = float(a1)
+# Velocidad de salida
+a2 = input("A2: ")
+if (a2):
+    a2 = float(a2)
+# Velocidad de entrada
+v1 = input("V1 (m/s): ")
+if (v1):
+    v1 = float(v1)
+# Velocidad de salida
+v2 = input("V2 (m/s): ")
+if (v2):
+    v2 = float(v2)
 
-# Ejecutar la función
-calculate_velocity()
+if not a1:
+    a1 = continuidad(a1, a2, v1, v2)
+print ("A1 ", round(a1, 2), "")
+if not a2:
+    a2 = continuidad(a1, a2, v1, v2)
+print ("A2 ", round(a2, 2), "")
+if not v1:
+    v1 = continuidad(a1, a2, v1, v2)
+print ("V1 ", round(v1, 2), 2), "(m/s)")
+if not v2:
+    v2 = continuidad(a1, a2, v1, v2)
+print ("V2 ", round(v2, 2), "(m/s)")
