@@ -1,5 +1,7 @@
 import math
 '''
+Resolución de ejercicios TP3 - Factor de Carga
+Ing. Aeroespacial 
 v = 2024.11.04 00:44
 Una Aeronave realiza una restablecida luego de picada a nivel del mar. Se pide determinar la V de vuelo para esa maniobra. Indique si la maniobra puede ser realiza con éxito a la V vuelo que tiene el avión.
 Datos n= 2,5; W: 1630 KG; Sw: 16,20 m**2; Clmax: 1,40; R=250m
