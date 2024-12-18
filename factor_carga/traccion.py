@@ -1,5 +1,7 @@
 import math
 '''
+Resolución de ejercicios TP3 - Factor de Carga
+
 v = 2024.10.29 18:21
 Calcular la tracción necesaria de un avión que vuela a nivel del mar en condiciones de atmósfera estándar si el mismo realizo un vuelo en ascenso con una actitud de 14° y un ángulo de trayectoria de 2° con los siguientes datos:
 V= 491 km/h; w=33 Tn; b=25m; e=0,94; CdFricción=0,0012; Cdforma= 0,0019; Cdi=0,0069
