@@ -1,0 +1,88 @@
+import math
+
+# Script MicroPython para angulos de ataque en pala de helicoptero
+# Para ascenso o descenso con potencia
+# Distribucion v_i constante
+# Prints cortos para calculadora
+
+# ----- Inputs -----
+rpm_motor = input("RPM motor: ")
+rpm_motor = float(rpm_motor) if rpm_motor else 3100.0
+
+reduccion = input("Reduccion (ej 6): ")
+reduccion = float(reduccion) if reduccion else 6.0
+
+diam = input("Diametro m: ")
+diam = float(diam) if diam else 8.16
+
+v_i = input("v_i m/s: ")
+v_i = float(v_i) if v_i else 0
+
+v_vert = input("V vertical m/s: ")
+v_vert = float(v_vert) if v_vert else 2.54
+
+v_h = input("V horiz m/s: ")
+v_h = float(v_h) if v_h else 15.43
+
+regimen = input("Regimen (a=ascenso, d=descenso): ")
+regimen = regimen.lower() if regimen else 'a'
+
+radios_str = input("Radios (sep , max 5): ")
+if radios_str:
+    posiciones = [float(x.strip()) for x in radios_str.split(',')][:5]
+else:
+    posiciones = [0.95, 0.50, 0.25, 0.05, 0.00]
+
+# ----- Calculos base -----
+print("\nRPM rotor")
+rpm_rotor = rpm_motor / reduccion
+print(round(rpm_rotor, 4))
+
+print("\nOmega rad/s")
+omega = 2 * math.pi * rpm_rotor / 60
+print(round(omega, 4))
+
+print("\nRadio m")
+r = diam / 2
+print(round(r, 4))
+
+print("\nV_tip m/s")
+v_tip = omega * r
+print(round(v_tip, 4))
+
+# U_P dependiendo de regimen
+print("\nU_P m/s")
+if (v_i == 0):
+    print("vi = 0 m/s")
+if regimen == 'd':
+    u_p = v_i - abs(v_vert)
+else:
+    u_p = v_i + abs(v_vert)
+print(round(u_p, 4))
+
+# ----- Resultados -----
+print("\n--- RESULTADOS ---")
+for frac in posiciones:
+    print("\nr/R =", frac)
+
+    print("U_T adv")
+    u_t_adv = v_tip * frac + v_h
+    print(round(u_t_adv, 4))
+
+    print("U_T ret")
+    u_t_ret = v_tip * frac - v_h
+    print(round(u_t_ret, 4))
+
+    print("phi adv deg")
+    if u_t_adv != 0:
+        phi_adv = math.atan(u_p / u_t_adv) * 180 / math.pi
+    else:
+        phi_adv = 90 if u_p > 0 else -90
+    print(round(phi_adv, 3))
+
+    print("phi ret deg")
+    if u_t_ret != 0:
+        phi_ret = math.atan(u_p / u_t_ret) * 180 / math.pi
+    else:
+        phi_ret = 90 if u_p > 0 else -90
+    print(round(phi_ret, 3))
